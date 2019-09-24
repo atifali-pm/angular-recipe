@@ -1,6 +1,35 @@
+<p>Server Name</p>
+<!--<input type="text" (input)="onUpdateServerName($event)">-->
+<input type="text" class="form-control" [(ngModel)]="serverName">
+
+<!--{{ serverName }}-->
+
 <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateServer()">Add servers</button>
-<p>Server is {{ allowNewServer }}</p>
-<p>{{ serverMessage }}</p>
+<!--<p>Server is {{ allowNewServer }}</p>-->
+<p *ngIf="serverCreated">{{ serverMessage }}</p>
 
 <app-server></app-server>
 <app-server></app-server>
+
+<input type="text" class="form-control" [(ngModel)]="username">
+<button class="btn btn-primary" (click)="resetUserName()" [disabled]="username === ''">Click here</button>
+
+<p class="paragraph">for my system? I think you need my new specs, please let me know what is required. I have new
+  installation of Ubunut 16.04, previously it was 14.04
+
+  name: atif@Leopard
+  Mac address: eno1 Link encap:Ethernet HWaddr 34:17:eb:c1:a6:cc
+  IP address: inet addr:192.168.40.122
+  {{ username}}
+</p>
+
+<hr>
+<button class="btn btn-primary" (click)="onToggleParagraph()">Display Details</button>
+<p *ngIf="displayDetails" class="paragraph">Secret password = tuna</p>
+<hr>
+  <div *ngFor="let count of log; let i = index"
+    [ngStyle]="{backgroundColor: i >= 4 ? 'blue' : 'transparent'}"
+    [ngClass]="{'white-color': i >= 4}"
+    >
+    {{count}}
+  </div>
