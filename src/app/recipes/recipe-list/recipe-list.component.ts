@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {RecipeModule} from '../recipe.module';
 
 @Component({
@@ -7,6 +7,7 @@ import {RecipeModule} from '../recipe.module';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
+  @Output() selectedRecipe = new EventEmitter<RecipeModule>();
 
   recipes: RecipeModule[] = [
     // tslint:disable-next-line:max-line-length
@@ -19,6 +20,9 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  onSelect(recipe: RecipeModule){
+    this.selectedRecipe.emit(recipe);
   }
 
 }
