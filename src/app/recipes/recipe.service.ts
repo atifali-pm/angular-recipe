@@ -1,9 +1,9 @@
 import {RecipeModule} from './recipe.module';
-import {EventEmitter} from '@angular/core';
+import {Subject} from 'rxjs';
 
 export class RecipeService {
 
-  selectedRecipe = new EventEmitter<RecipeModule>();
+  selectedRecipe = new Subject<RecipeModule>();
 
   private recipes: RecipeModule[] = [
     // tslint:disable-next-line:max-line-length
@@ -22,7 +22,7 @@ export class RecipeService {
   }
 
   showRecipe(recipe: RecipeModule) {
-    this.selectedRecipe.emit(recipe);
+    this.selectedRecipe.next(recipe);
   }
 
 }
