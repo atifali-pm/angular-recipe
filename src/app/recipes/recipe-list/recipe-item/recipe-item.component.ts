@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {RecipeModule} from '../../recipe.module';
-import {RecipeService} from '../../recipe.service';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Recipe } from '../../recipe.model';
 
 @Component({
   selector: 'app-recipe-item',
@@ -8,20 +8,9 @@ import {RecipeService} from '../../recipe.service';
   styleUrls: ['./recipe-item.component.css']
 })
 export class RecipeItemComponent implements OnInit {
-
-  // tslint:disable-next-line:no-input-rename
-  @Input() recipe: RecipeModule;
-
+  @Input() recipe: Recipe;
   @Input() index: number;
-
-  constructor(private recipeService: RecipeService) {
-  }
 
   ngOnInit() {
   }
-
-  onSelected() {
-    this.recipeService.showRecipe(this.recipe);
-  }
-
 }
