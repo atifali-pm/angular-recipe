@@ -1,0 +1,20 @@
+<nav class="navbar navbar-detault">
+  <div class="container-fluit">
+
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Project management</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li *ngIf="isAuthenticated"><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Categories</a></li>
+        <li *ngIf="isAuthenticated"><a [routerLink]="['/projects']" routerLinkActive="active">Projects</a></li>
+        <ul class="nav navbar-nav navbar-right">
+          <li *ngIf="isAuthenticated">
+            <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+          </li>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>

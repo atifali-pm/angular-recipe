@@ -1,0 +1,9 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.crud-add-link {
+  cursor: pointer;
+  float: right;
+  margin: auto;
+}

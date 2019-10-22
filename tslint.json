@@ -3,6 +3,16 @@
   "rules": {
     "array-type": false,
     "arrow-parens": false,
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case",
+        "allow-trailing-underscore",
+        "allow-snake-case"
+      ]
+    },
     "deprecation": {
       "severity": "warning"
     },

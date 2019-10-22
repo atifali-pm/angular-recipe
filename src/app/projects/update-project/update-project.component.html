@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Add or Edit project</h3>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <label>Name</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        name="title"
+        ngModel
+        required
+      >
+      <label>Description</label>
+      <textarea
+        type="text"
+        id="content"
+        class="form-control"
+        name="content"
+        ngModel
+        required
+      ></textarea>
+      <br>
+      <button class="btn btn-success" type="submit" [disabled]="f.invalid">{{ editMode ? 'Update' : 'Add' }}</button>
+      <span class="spacer-left"></span>
+      <button class="btn btn-default" routerLink="/">Cancel</button>
+    </form>
+  </div>
+</div>
