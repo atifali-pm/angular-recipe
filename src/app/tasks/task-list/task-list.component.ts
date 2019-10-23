@@ -23,6 +23,7 @@ export class TaskListComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('projectId')) {
+        this.isLoading = true;
         this.projectId = paramMap.get('projectId');
         this.taskService.getTasks(this.projectId);
         this.taskSub = this.taskService.getTaskUpdateListener()
