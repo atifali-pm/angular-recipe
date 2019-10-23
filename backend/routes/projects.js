@@ -1,5 +1,6 @@
 const express = require('express');
 const Project = require('../model/project');
+const Task = require('../model/task');
 
 const router = express.Router();
 
@@ -50,14 +51,38 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
+router.get('/:projectId/tasks', (req, res, next) => {
+  Task.find({
+    _projectId: req.params.projectId
+  }).then(documents => {
+    res.status(200).json({
+      message: 'Tasks fetched successfully!',
+      tasks: documents
+    });
+  });
+});
+
+
 router.delete('/:id', (req, res, next) => {
   console.log(req.params.id);
   Project.deleteOne({_id: req.params.id}).then(
     result => {
       console.log(result);
+      console.log(req.params.id);
+      deleteTasksFromList(req.params.id);
       res.status(200).json({message: 'Project deleted!'});
     }
   );
 })
+
+/* HELPER METHODS */
+let deleteTasksFromList = (_projectId) => {
+  Task.deleteMany({
+    _projectId
+  }).then(() => {
+    console.log("Tasks from " + _projectId + " were deleted!");
+  })
+}
+
 
 module.exports = router;

@@ -1,1 +1,38 @@
-<p>task-list works!</p>
+<router-outlet></router-outlet>
+<hr>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-10"><h3>Manage Tasks</h3></div>
+            <div class="col-md-2">
+              <a class="crud-add-link" [routerLink]="['/project/' + projectId + '/task/add-task/']">Add Task</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let task of tasks; let id = index;">
+          <td>{{ task.title }}</td>
+          <td>{{ task.content }}</td>
+          <td>
+            <a class="a-action" title="Edit" data-toggle="tooltip"
+               [routerLink]="['/project/' + projectId + '/task/edit/' + task._id]">Edit</a>|
+            <a (click)=" onDelete(task._id)" class="a-action" title="Delete" data-toggle="tooltip">Delete</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

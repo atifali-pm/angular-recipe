@@ -18,6 +18,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.projectService.getProjects();
     this.projectSub = this.projectService.getProjectUpdateListener()
       .subscribe((projects: Project[]) => {
@@ -29,6 +30,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   onDelete(projectId: string) {
     this.projectService.deleteProject(projectId);
+
   }
 
   ngOnDestroy(): void {

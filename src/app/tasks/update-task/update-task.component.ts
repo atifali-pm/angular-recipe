@@ -26,13 +26,13 @@ export class UpdateTaskComponent implements OnInit {
         this.projectId = paramMap.get('projectId');
         if (paramMap.has('taskId')) {
           this.isUpdating = true;
-          // this.projectId = paramMap.get('projectId');
-          // this.isLoading = true;
-          // this.taskService.getProject(this.projectId).subscribe(projectData => {
-          //   console.log(projectData);
-          //   this.isLoading = false;
-          //   this.project = { _id: projectData._id, title: projectData.title, content: projectData.content };
-          // });
+          this.taskId = paramMap.get('taskId');
+          this.isLoading = true;
+          this.taskService.getTask(this.taskId).subscribe(taskData => {
+            console.log(taskData);
+            this.isLoading = false;
+            this.task = { _id: taskData._id, title: taskData.title, content: taskData.content, _projectId: this.projectId };
+          });
         } else {
           this.taskId = null;
           this.task = null;
@@ -52,9 +52,9 @@ export class UpdateTaskComponent implements OnInit {
     const title = form.value.title;
     const content = form.value.content;
     if (!this.isUpdating) {
-      this.taskService.addProject(title, content, this.projectId);
+      this.taskService.addTask(title, content, this.projectId);
     } else {
-      // this.taskService.updateProject(this.taskId, title, content, this.projectId);
+       this.taskService.updateTask(this.taskId, title, content, this.projectId);
     }
     form.resetForm();
   }

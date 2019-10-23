@@ -28,5 +28,5 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/projects", projectsRoutes);
-app.use("/api/tasks", tasksRoutes);
+app.use("/api/tasks/", tasksRoutes);
 module.exports = app;

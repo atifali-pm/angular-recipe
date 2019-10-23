@@ -21,7 +21,7 @@
         required
       ></textarea>
       <br>
-      <button class="btn btn-success" type="submit" [disabled]="projectForm.invalid">{{ mode ? 'Update' : 'Add' }}</button>
+      <button class="btn btn-success" type="submit" [disabled]="projectForm.invalid">{{ mode === 'create' ? 'Add' : 'Update' }}</button>
       <span class="spacer-left"></span>
       <button class="btn btn-default" routerLink="/">Cancel</button>
     </form>
