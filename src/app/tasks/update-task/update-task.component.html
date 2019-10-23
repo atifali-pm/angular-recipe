@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Add or Edit Task</h3>
+    <form (submit)="onSaveTask(taskForm)" #taskForm="ngForm">
+      <label>Name</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        name="title"
+        [ngModel]="task?.title"
+        required
+      >
+      <label>Description</label>
+      <textarea
+        type="text"
+        id="content"
+        class="form-control"
+        name="content"
+        [ngModel]="task?.content"
+        required
+      ></textarea>
+      <br>
+      <button class="btn btn-success" type="submit" [disabled]="taskForm.invalid">{{ isUpdating ? 'Update' : 'Add' }}</button>
+      <span class="spacer-left"></span>
+      <button class="btn btn-default" [routerLink]="['/project/' + projectId, 'tasks']">Cancel</button>
+    </form>
+  </div>
+</div>

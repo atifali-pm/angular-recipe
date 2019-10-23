@@ -9,13 +9,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { UpdateProjectComponent } from './projects/update-project/update-project.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProjectComponent } from './projects/project/project.component';
+import { TaskListComponent } from './tasks/task-list/task-list.component';
+import { TaskComponent } from './tasks/task/task.component';
+import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ProjectListComponent,
-    UpdateProjectComponent
+    UpdateProjectComponent,
+    ProjectComponent,
+    TaskListComponent,
+    TaskComponent,
+    UpdateTaskComponent,
   ],
   imports: [
     BrowserModule,

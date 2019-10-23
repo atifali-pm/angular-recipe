@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const projectsRoutes = require('./routes/projects');
+const tasksRoutes = require('./routes/tasks');
 
 const app = express();
 mongoose.set('useNewUrlParser', true);
@@ -27,4 +28,5 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/projects", projectsRoutes);
+app.use("/api/tasks", tasksRoutes);
 module.exports = app;

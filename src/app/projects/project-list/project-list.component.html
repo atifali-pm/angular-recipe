@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let project of projects; let id = index;">
-          <td>{{ project.title }}</td>
+          <td><a class="a-action" title="View project" data-toggle="tooltip" [routerLink]="['project', project._id]">{{ project.title }}</a></td>
           <td>{{ project.content }}</td>
           <td>
             <a class="a-action" title="Edit" data-toggle="tooltip" [routerLink]="['edit', project._id]">Edit</a>|
