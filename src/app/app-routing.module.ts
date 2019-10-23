@@ -7,7 +7,7 @@ const appRoutes: Routes = [
   { path: '', component: ProjectListComponent },
   { path: 'projects', component: ProjectListComponent },
   { path: 'add-project', component: UpdateProjectComponent },
-  { path: 'edit/:id', component: UpdateProjectComponent }
+  { path: 'edit/:projectId', component: UpdateProjectComponent }
 ];
 
 @NgModule({

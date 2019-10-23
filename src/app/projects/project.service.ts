@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProjectService {
   private projects: Project[] = [];
-  private postsUpdated = new Subject<Project[]>();
+  private projectsUpdated = new Subject<Project[]>();
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -23,23 +23,27 @@ export class ProjectService {
               return {
                 title: post.title,
                 content: post.content,
-                id: post._id
+                _id: post._id
               };
             });
           })
         ))
       .subscribe(transformedPost => {
         this.projects = transformedPost;
-        this.postsUpdated.next([ ...this.projects ]);
+        this.projectsUpdated.next([ ...this.projects ]);
       });
   }
 
   getProjectUpdateListener() {
-    return this.postsUpdated.asObservable();
+    return this.projectsUpdated.asObservable();
   }
 
-  addProject(newProject: Project) {
-    const project: Project = { _id: null, title: newProject.title, content: newProject.content };
+  getProject(id: string) {
+    return this.http.get<{ _id: string, title: string, content: string }>('http://localhost:3000/api/projects/' + id);
+  }
+
+  addProject(title: string, content: string) {
+    const project: Project = { _id: null, title, content };
     // console.log(project);
     this.http.post<{ message: string, projectId: string }>('http://localhost:3000/api/projects', project).subscribe((postData) => {
       const projectId = postData.projectId;
@@ -47,8 +51,26 @@ export class ProjectService {
       this.projects.push(project);
       console.log(this.projects);
       this.router.navigate([ '/' ]);
-      this.postsUpdated.next([ ...this.projects ]);
+      this.projectsUpdated.next([ ...this.projects ]);
     });
+  }
 
+  updateProject(id: string, title: string, content: string) {
+    const project: Project = { _id: id, title, content };
+    console.log(id, project);
+    this.http.put('http://localhost:3000/api/projects/' + id, project)
+      .subscribe(response => {
+        console.log(response);
+        this.router.navigate([ '/' ]);
+      });
+  }
+
+  deleteProject(id: string) {
+    this.http.delete('http://localhost:3000/api/projects/' + id)
+      .subscribe(response => {
+        console.log(response);
+        this.projects = this.projects.filter(project => project._id !== id);
+        this.projectsUpdated.next([ ...this.projects ]);
+      });
   }
 }

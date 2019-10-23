@@ -1,4 +1,4 @@
-const  express = require('express');
+const express = require('express');
 const Project = require('../model/project');
 
 const router = express.Router();
@@ -19,14 +19,12 @@ router.post("", (req, res, next) => {
 });
 
 router.put("/:id", (req, res, next) => {
-  const project = new Project({
-    _id: req.body.id,
+  Project.findOneAndUpdate({_id: req.params.id}, {
+    _id: req.params.id,
     title: req.body.title,
     content: req.body.content
-  });
-  project.updateOne({_id: req.params.id}, project).then(result => {
-    console.log(result);
-    res.status(200).json({message: "Update successfully!"});
+  }).then(() => {
+    res.status(200).json({message: "Updated successfully!"});
   });
 });
 
@@ -40,9 +38,10 @@ router.get('', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
+  console.log(req.params);
   Project.findById(req.params.id).then(project => {
     if (project) {
-      res.status(200).json(post);
+      res.status(200).json(project);
     } else {
       res.status(404).json({
         message: 'Project not found!!',

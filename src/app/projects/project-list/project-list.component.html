@@ -26,8 +26,8 @@
           <td>{{ project.title }}</td>
           <td>{{ project.content }}</td>
           <td>
-            <a (click)="onEdit(id)" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-            <a (click)="onDelete(id)" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+            <a class="a-action" title="Edit" data-toggle="tooltip" [routerLink]="['edit', project._id]">Edit</a>|
+            <a (click)="onDelete(project._id)" class="a-action" title="Delete" data-toggle="tooltip">Delete</a>
           </td>
         </tr>
         </tbody>

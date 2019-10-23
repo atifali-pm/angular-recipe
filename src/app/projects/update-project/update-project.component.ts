@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Project } from '../project.model';
 import { ProjectService } from '../project.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 
 @Component({
@@ -15,38 +16,48 @@ export class UpdateProjectComponent implements OnInit, OnDestroy {
   // @ts-ignore
   @ViewChild('f') slForm: NgForm;
 
-  subscription: Subscription;
-  editMode = false;
-  editedItemindex: number;
-  editedItem: Project;
-  projectId = null;
+  enteredTitle = '';
+  enteredContent = '';
+  public mode = 'create';
+  public projectId = null;
+  public project: Project;
+  isLoading = false;
 
-  constructor(private pService: ProjectService) {
+  constructor(private pService: ProjectService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // this.subscription = this.pService.startedEditing
-    //   .subscribe((index: number) => {
-    //     this.editMode = true;
-    //     this.editedItemindex = index;
-    //     this.editedItem = this.pService.getProject(index);
-    //     this.slForm.setValue({
-    //       name: this.editedItem.name,
-    //       description: this.editedItem.description,
-    //     });
-    //   });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('projectId')) {
+        this.mode = 'edit';
+        this.projectId = paramMap.get('projectId');
+        this.isLoading = true;
+        this.pService.getProject(this.projectId).subscribe(projectData => {
+          console.log(projectData);
+          this.isLoading = false;
+          this.project = { _id: projectData._id, title: projectData.title, content: projectData.content };
+        });
+      } else {
+        this.mode = 'create';
+        this.projectId = null;
+        this.project = null;
+      }
+    });
   }
 
-  onSubmit(form: NgForm) {
-    const value = form.value;
-    const newProject = new Project(this.projectId, value.title, value.content);
-    // if (this.editMode) {
-    //   this.pService.updateProject(this.editedItemindex, newProject);
-    // } else {
-    this.pService.addProject(newProject);
-    // }
-    form.reset();
-    this.editMode = false;
+  onSaveProject(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    const title = form.value.title;
+    const content = form.value.content;
+    if (this.mode === 'create') {
+      this.pService.addProject(title, content);
+    } else {
+      this.pService.updateProject(this.projectId, title, content);
+    }
+    form.resetForm();
   }
 
   ngOnDestroy(): void {
