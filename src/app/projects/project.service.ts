@@ -16,7 +16,7 @@ export class ProjectService {
   }
 
   getProjects() {
-    return this.http.get<{ message: string, projects: any }>('http://localhost:3000/api/projects')
+    return this.http.get<{ message: string, projects: any }>('http://localhost:3001/api/projects')
       .pipe(
         map((postData => {
             return postData.projects.map(post => {
@@ -39,13 +39,13 @@ export class ProjectService {
   }
 
   getProject(id: string) {
-    return this.http.get<{ _id: string, title: string, content: string }>('http://localhost:3000/api/projects/' + id);
+    return this.http.get<{ _id: string, title: string, content: string }>('http://localhost:3001/api/projects/' + id);
   }
 
   addProject(title: string, content: string) {
     const project: Project = { _id: null, title, content };
     // console.log(project);
-    this.http.post<{ message: string, projectId: string }>('http://localhost:3000/api/projects', project).subscribe((postData) => {
+    this.http.post<{ message: string, projectId: string }>('http://localhost:3001/api/projects', project).subscribe((postData) => {
       const projectId = postData.projectId;
       project._id = projectId;
       this.projects.push(project);
@@ -58,7 +58,7 @@ export class ProjectService {
   updateProject(id: string, title: string, content: string) {
     const project: Project = { _id: id, title, content };
     console.log(id, project);
-    this.http.put('http://localhost:3000/api/projects/' + id, project)
+    this.http.put('http://localhost:3001/api/projects/' + id, project)
       .subscribe(response => {
         console.log(response);
         this.router.navigate([ '/' ]);
@@ -66,7 +66,7 @@ export class ProjectService {
   }
 
   deleteProject(id: string) {
-    this.http.delete('http://localhost:3000/api/projects/' + id)
+    this.http.delete('http://localhost:3001/api/projects/' + id)
       .subscribe(response => {
         console.log(response);
         this.projects = this.projects.filter(project => project._id !== id);

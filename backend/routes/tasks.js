@@ -1,9 +1,10 @@
 const express = require('express');
 const Task = require('../model/task');
+const auth = require('../middleware/authenticate');
 
 const router = express.Router();
 
-router.post('/:projectId', (req, res, next) => {
+router.post('/:projectId', auth, (req, res, next) => {
   console.log(req.body);
   const tasks = new Task({
     title: req.body.title,
@@ -19,7 +20,7 @@ router.post('/:projectId', (req, res, next) => {
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", auth, (req, res, next) => {
   Task.findOneAndUpdate({_id: req.params.id}, {
     _id: req.params.id,
     title: req.body.title,
@@ -43,7 +44,7 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', auth, (req, res, next) => {
   console.log(req.params.id);
   Task.deleteOne({_id: req.params.id}).then(
     result => {

@@ -28,6 +28,7 @@ export class UpdateProjectComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      console.log(paramMap.getAll('projectId'));
       if (paramMap.has('projectId')) {
         this.mode = 'edit';
         this.projectId = paramMap.get('projectId');

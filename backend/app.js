@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const projectsRoutes = require('./routes/projects');
 const tasksRoutes = require('./routes/tasks');
+const usersRoutes = require('./routes/user');
 
 const app = express();
 mongoose.set('useNewUrlParser', true);
@@ -22,11 +23,12 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader('Access-Control-Allow-Methods', "GET, POST, PUT, PATCH, DELETE, OPTIONS");
   next();
 });
 
 app.use("/api/projects", projectsRoutes);
-app.use("/api/tasks/", tasksRoutes);
+app.use("/api/tasks", tasksRoutes);
+app.use('/api/user', usersRoutes);
 module.exports = app;

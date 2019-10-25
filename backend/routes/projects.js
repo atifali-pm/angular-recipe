@@ -1,10 +1,11 @@
 const express = require('express');
 const Project = require('../model/project');
 const Task = require('../model/task');
+const auth = require('../middleware/authenticate');
 
 const router = express.Router();
 
-router.post("", (req, res, next) => {
+router.post("", auth, (req, res, next) => {
   console.log(req.body);
   const projects = new Project({
     title: req.body.title,
@@ -19,7 +20,7 @@ router.post("", (req, res, next) => {
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", auth, (req, res, next) => {
   Project.findOneAndUpdate({_id: req.params.id}, {
     _id: req.params.id,
     title: req.body.title,
@@ -63,7 +64,7 @@ router.get('/:projectId/tasks', (req, res, next) => {
 });
 
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', auth, (req, res, next) => {
   console.log(req.params.id);
   Project.deleteOne({_id: req.params.id}).then(
     result => {

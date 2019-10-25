@@ -9,7 +9,7 @@
           <div class="col-md-12">
             <div class="col-md-10"><h3>Manage Projects</h3></div>
             <div class="col-md-2">
-              <a class="crud-add-link" routerLink="/add-project">Add Project</a>
+              <a class="crud-add-link" routerLink="/project/add">Add Project</a>
             </div>
           </div>
         </div>
@@ -24,10 +24,11 @@
         </thead>
         <tbody>
         <tr *ngFor="let project of projects; let id = index;">
-          <td><a class="a-action" title="View project" data-toggle="tooltip" [routerLink]="['project', project._id]">{{ project.title }}</a></td>
+          <td><a class="a-action" title="View project" data-toggle="tooltip"
+                 [routerLink]="['/project/' + project._id + '/view']">{{ project.title }}</a></td>
           <td>{{ project.content }}</td>
           <td>
-            <a class="a-action" title="Edit" data-toggle="tooltip" [routerLink]="['edit', project._id]">Edit</a>|
+            <a class="a-action" title="Edit" data-toggle="tooltip" [routerLink]="['/project/' + project._id + '/edit']">Edit</a>|
             <a (click)="onDelete(project._id)" class="a-action" title="Delete" data-toggle="tooltip">Delete</a>
           </td>
         </tr>

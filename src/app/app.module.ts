@@ -8,12 +8,16 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProjectListComponent } from './projects/project-list/project-list.component';
 import { UpdateProjectComponent } from './projects/update-project/update-project.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ProjectComponent } from './projects/project/project.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
 import { LoadingComponent } from './loading/loading.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { MatFormFieldModule } from '@angular/material';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,8 @@ import { LoadingComponent } from './loading/loading.component';
     TaskComponent,
     UpdateTaskComponent,
     LoadingComponent,
+    SignupComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,8 +39,9 @@ import { LoadingComponent } from './loading/loading.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    MatFormFieldModule,
   ],
-  providers: [],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true } ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule {
